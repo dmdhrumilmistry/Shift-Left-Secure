@@ -47,7 +47,9 @@ class GitHandler:
             return latest_commit_hash, target_commit_hash
 
         logger.warning('No previous commit found.')
-        return None, None
+
+        # return HEAD and empty tree hash 
+        return 'HEAD', '4b825dc642cb6eb9a060e54bf8d69288fbee4904'
 
 
 
