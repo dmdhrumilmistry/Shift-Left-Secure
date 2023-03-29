@@ -1,10 +1,10 @@
 # Shift Left Secure
 
-Secure your project code before pushing commits to github/gitlab/bitbucket.
+Secure your project source code before pushing commits to github/gitlab/bitbucket.
 
 ## Usage
 
-- add key to environment variable
+- Add your ChatGPT API key to environment variable
 
     ```bash
     export OPEN_API_KEY=KEY
