@@ -1,3 +1,6 @@
+from json import dumps
+
+
 def join_diffs(diffs:list):
     for file_change_data in diffs:
         changed_lines = '\n'.join(file_change_data.get('changed_lines',[]))
@@ -15,3 +18,8 @@ def join_openai_response(response:dict):
         message += choice.get('message', {'content':''}).get('content','')
 
     return message
+
+# def json_to_file(file_name:str):
+#     '''
+#     dumps json data to 
+#     '''

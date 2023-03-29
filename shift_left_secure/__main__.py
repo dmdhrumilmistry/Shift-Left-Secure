@@ -19,7 +19,7 @@ code_analyzer = CodeAnalyzer(
 if __name__ == '__main__':
     parser = ArgumentParser(prog='shift_left_secure')
     parser.add_argument('-d', '--directory', help='directory of git project', dest='directory', type=str, required=True)
-    parser.add_argument('-c', '--commit_hash', help='commit hash', dest='commits', type=str, default=1)
+    parser.add_argument('-c', '--commit_hash', help='commit hash', dest='commits', type=int, default=1)
 
     args = parser.parse_args()
 
