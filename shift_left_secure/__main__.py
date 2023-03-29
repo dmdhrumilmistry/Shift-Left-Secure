@@ -1,6 +1,17 @@
 from argparse import ArgumentParser
 from pprint import pprint
+from os import environ
+
+
+from .chatgpt_api import CodeAnalyzer 
 from .git_handler import GitHandler
+from .utils import join_diffs, join_openai_response
+
+OPEN_API_KEY = environ.get('OPEN_API_KEY', False)
+code_analyzer = CodeAnalyzer(
+    api_key=OPEN_API_KEY,
+    model_engine='gpt-3.5-turbo',
+)
 
 
 if __name__ == '__main__':
@@ -10,6 +21,29 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    git = GitHandler(repo_dir=args.directory)
+    # get diff changes
+    # git = GitHandler(repo_dir=args.directory)
+    # diff_changes = join_diffs(git.get_diff())
+    # pprint(diff_changes)
 
-    pprint(git.get_diff())
+    # get bugs in code
+    code = '''
+from subprocess import check_output
+from os.path import isfile
+
+
+def run_cmd(cmd:str):
+    output = check_output(cmd, shell=True)
+    return output
+
+def write_data(file_data:str, file_path:str):
+    if not isfile(file_path):
+        return False
+    
+    with open(file_path, 'w') as f:
+        f.write(file_data)
+
+    return True    
+'''
+    analyzed_data = code_analyzer.analyze_code(file_name='testing.py', code=code)
+    pprint(analyzed_data)
