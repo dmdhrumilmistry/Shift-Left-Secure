@@ -1,5 +1,7 @@
 from argparse import ArgumentParser
+from pprint import pprint
 from .git_handler import GitHandler
+
 
 if __name__ == '__main__':
     parser = ArgumentParser(prog='shift_left_secure')
@@ -10,4 +12,4 @@ if __name__ == '__main__':
 
     git = GitHandler(repo_dir=args.directory)
 
-    print(git.get_diff())
+    pprint(git.get_diff())

@@ -32,38 +32,53 @@ class GitHandler:
         '''
         get git difference between previous 
         '''
-        hcommit = self._repo.head.commit
-        # diffs = hcommit.diff(commit_hash)
+        diffs = []
 
-        # for diff in diffs:
-        #     # If the diff is not for a file, skip it
-        #     if not diff.a_blob:
-        #         continue
-            
-        #     # Get the file path and contents
-        #     file_path = diff.a_blob.path
-        #     file_contents = diff.a_blob.data_stream.read().decode('utf-8')
-            
-        #     # Print the file path and contents
-        #     print('---', file_path, '---')
-        #     # print(file_contents)
-        #     for hunk in diff.hunks:
-        #         # Iterate over the lines in the hunk and print the changed ones
-        #         for line in hunk.lines:
-        #             if line.startswith('+') or line.startswith('-'):
-        #                 print(line.strip())
-
-        # changed_files = [item.a_path for item in hcommit.diff(None)]
-        # print(changed_files)
+        diff_str = self._repo.git.diff('--no-renames', '-U0')
         
-        for item in hcommit.diff(None):
-            # Get the file path and diff text
-            path = item.a_path
-            diff_text = item.diff
+        # Split the diff string into lines
+        diff_lines = diff_str.split('\n')
 
-            # Print the file path
-            print(f'Changes for file: {path}')
 
-            # Print the diff text
-            print(diff_text)
+        # Initialize variables for the current file path and changed lines
+        file_path = None
+        changed_lines = []
 
+        # Iterate over the lines in the diff and print the changed ones
+        for line in diff_lines:
+            if line.startswith('diff --git'):
+                # If this is the start of a new file diff, print the changed lines for the previous file (if any)
+                if file_path is not None:
+                    # pass
+                    # print('---', file_path, '---')
+                    # for changed_line in changed_lines:
+                        # print(changed_line)
+                
+                    diffs.append({
+                        "file_path": file_path,
+                        "changed_lines": changed_lines
+                    })
+
+                # Initialize variables for the new file diff
+                file_path = line.split(' b/')[-1]
+                changed_lines = []
+
+            elif line.startswith('++'):
+                pass
+
+            elif line.startswith('+'):
+                # If this is a changed line, add it to the list of changed lines for the current file
+                changed_lines.append(line.strip().removeprefix('+'))
+        
+        # Print the changed lines for the last file
+        if file_path is not None:
+             diffs.append({
+                "file_path": file_path,
+                "changed_lines": changed_lines
+            })
+             
+            # print('---', file_path, '---')
+            # for changed_line in changed_lines:
+                # print(changed_line)
+
+        return diffs
