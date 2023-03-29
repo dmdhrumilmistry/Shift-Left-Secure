@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from asyncio import run
 from pprint import pprint
 from os import environ
 
@@ -6,6 +7,7 @@ from os import environ
 from .chatgpt_api import CodeAnalyzer 
 from .git_handler import GitHandler
 from .utils import join_diffs
+
 
 OPEN_API_KEY = environ.get('OPEN_API_KEY', False)
 code_analyzer = CodeAnalyzer(
@@ -25,9 +27,6 @@ if __name__ == '__main__':
     git = GitHandler(repo_dir=args.directory)
     diff_changes = join_diffs(git.get_diff(args.commits))
 
-    for diff in diff_changes:
-        file_name = diff.get('file_path')
-        changed_lines = diff.get('changed_lines')
+    analyzed_code_snippets = run(code_analyzer.analyze_git_changes(diff_changes))
 
-        # analyzed_data = code_analyzer.analyze_code(file_name='testing.py', code=changed_lines)
-        # pprint(analyzed_data)
+    pprint(analyzed_code_snippets)
