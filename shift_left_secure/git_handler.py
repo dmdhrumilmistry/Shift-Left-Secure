@@ -53,7 +53,6 @@ class GitHandler:
         #             if line.startswith('+') or line.startswith('-'):
         #                 print(line.strip())
 
-        # 
         # changed_files = [item.a_path for item in hcommit.diff(None)]
         # print(changed_files)
         

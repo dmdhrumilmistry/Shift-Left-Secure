@@ -9,7 +9,7 @@ packages = [{include = "shift_left_secure"}]
 [tool.poetry.dependencies]
 python = "^3.7"
 gitpython = "^3.1.31"
-requests = "^2.28.2"
+openapi = "^1.1.0"
 
 
 [build-system]
