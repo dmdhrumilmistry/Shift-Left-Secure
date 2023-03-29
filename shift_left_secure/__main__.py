@@ -5,7 +5,7 @@ from os import environ
 
 from .chatgpt_api import CodeAnalyzer 
 from .git_handler import GitHandler
-from .utils import join_diffs, join_openai_response
+from .utils import join_diffs
 
 OPEN_API_KEY = environ.get('OPEN_API_KEY', False)
 code_analyzer = CodeAnalyzer(
@@ -17,33 +17,33 @@ code_analyzer = CodeAnalyzer(
 if __name__ == '__main__':
     parser = ArgumentParser(prog='shift_left_secure')
     parser.add_argument('-d', '--directory', help='directory of git project', dest='directory', type=str, required=True)
-    parser.add_argument('-c', '--commit_hash', help='commit hash', dest='commits', type=str, default=None)
+    parser.add_argument('-c', '--commit_hash', help='commit hash', dest='commits', type=str, default=1)
 
     args = parser.parse_args()
 
     # get diff changes
-    # git = GitHandler(repo_dir=args.directory)
-    # diff_changes = join_diffs(git.get_diff())
-    # pprint(diff_changes)
+    git = GitHandler(repo_dir=args.directory)
+    diff_changes = join_diffs(git.get_diff(args.commits))
+    pprint(diff_changes)
 
     # get bugs in code
-    code = '''
-from subprocess import check_output
-from os.path import isfile
+#     code = '''
+# from subprocess import check_output
+# from os.path import isfile
 
 
-def run_cmd(cmd:str):
-    output = check_output(cmd, shell=True)
-    return output
+# def run_cmd(cmd:str):
+#     output = check_output(cmd, shell=True)
+#     return output
 
-def write_data(file_data:str, file_path:str):
-    if not isfile(file_path):
-        return False
+# def write_data(file_data:str, file_path:str):
+#     if not isfile(file_path):
+#         return False
     
-    with open(file_path, 'w') as f:
-        f.write(file_data)
+#     with open(file_path, 'w') as f:
+#         f.write(file_data)
 
-    return True    
-'''
-    analyzed_data = code_analyzer.analyze_code(file_name='testing.py', code=code)
-    pprint(analyzed_data)
+#     return True
+# '''
+    # analyzed_data = code_analyzer.analyze_code(file_name='testing.py', code=code)
+    # pprint(analyzed_data)

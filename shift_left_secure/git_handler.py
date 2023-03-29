@@ -27,14 +27,41 @@ class GitHandler:
         self._repo = Repo(repo_dir)
 
 
-
-    def get_diff(self, commit_hash:str=None):
+    def __get_commit_hashes(self, commit_no:int=1):
         '''
-        get git difference between previous 
+        get commit hashes
+        '''
+        commits = list(self._repo.iter_commits('HEAD'))
+
+        print(len(commits), commit_no)
+        if len(commits) > 1 and len(commits) >= commit_no:
+            print('in 1')
+            latest_commit_hash = commits[0].hexsha
+            target_commit_hash = commits[commit_no].hexsha
+            logger.info(f'Found {commit_no} commits from HEAD')
+            return latest_commit_hash, target_commit_hash
+        
+        elif len(commits) > 1:
+            latest_commit_hash = commits[0].hexsha
+            target_commit_hash = commits[1].hexsha
+            logger.info(f'couldn\'t find {commit_no} commits from HEAD. using previous commit hash as target commit.')
+            return latest_commit_hash, target_commit_hash
+
+        logger.warning('No previous commit found.')
+        return None
+
+
+
+    def get_diff(self, commit_no:int=None):
+        '''
+        get git difference between previous.
+        param: commits_no (int), no of commits to be analyzed from current head.
         '''
         diffs = []
 
-        diff_str = self._repo.git.diff('--no-renames', '-U0')
+        latest_commit_hash, target_commit_hash = self.__get_commit_hashes(commit_no)
+
+        diff_str = self._repo.git.diff('--no-renames', '-U0', target_commit_hash, latest_commit_hash)
         
         # Split the diff string into lines
         diff_lines = diff_str.split('\n')
