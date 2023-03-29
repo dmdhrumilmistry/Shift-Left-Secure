@@ -17,7 +17,7 @@ class CodeAnalyzer:
         openai.api_key = api_key
         self.model_engine = model_engine
 
-    def find_bugs_in_code(self, code):
+    async def find_bugs_in_code(self, code):
         prompt = f"What are the bugs in this code? Also find logical errors or issues with implementation\n\n{code}\n\nBugs:"
         messages = [{"role":"user", "content":prompt}]
 
@@ -28,7 +28,7 @@ class CodeAnalyzer:
 
         return response
     
-    def find_vulns_in_code(self, code):
+    async def find_vulns_in_code(self, code):
         prompt = f"What are the vulnerabilities in this code? and how can we fix it?\n\n{code}"
         messages = [{"role":"user", "content":prompt}]
 
@@ -42,9 +42,16 @@ class CodeAnalyzer:
     async def analyze_code(self, file_name:str, code:str):
         logger.info(f'Analyzing code of file: {file_name}')
 
-        # TODO: call below calls with async
-        bugs_response = self.find_bugs_in_code(code)
-        vulns_response = self.find_vulns_in_code(code)
+        tasks = [
+            # for bug
+            asyncio.ensure_future(self.find_bugs_in_code(code)),
+            # for vulns
+            asyncio.ensure_future(self.find_vulns_in_code(code)),
+        ]
+        responses = await asyncio.gather(*tasks)
+
+        bugs_response = responses[0]
+        vulns_response = responses[1]
 
         # extract data 
         if bugs_response:

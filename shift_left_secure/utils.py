@@ -24,13 +24,10 @@ def join_openai_response(response:dict):
 
     return message
 
-def json_to_file(file_path:str, data:dict):
+def json_to_file(file_path:str, data:dict or list):
     '''
     dumps json data to a file
     '''
-    if not isinstance(data, dict):
-        return False
-    
     if not file_path.endswith('.json'):
         file_path += '.json'
     
@@ -43,3 +40,18 @@ def json_to_file(file_path:str, data:dict):
         logger.exception(e)
 
     return True
+
+def analyzed_data_to_console(analyzed_data:list):
+    if not isinstance(analyzed_data, list):
+        logger.warning('analyzed_data should be a list')
+        return 
+
+    for code_analysis in analyzed_data:
+        file_name = code_analysis.get('file_name')
+        bugs_response = code_analysis.get('bugs_response')
+        vulns_response = code_analysis.get('vulns_response')
+
+        print('FILE NAME:\t', file_name,'\n')
+        print('BUGS:\n',bugs_response, '\n')
+        print('VULNS:\n', vulns_response, '\n')
+        print('-'*20)

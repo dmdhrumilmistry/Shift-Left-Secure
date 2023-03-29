@@ -32,10 +32,9 @@ class GitHandler:
         get commit hashes
         '''
         commits = list(self._repo.iter_commits('HEAD'))
+        logger.info(f'Total commits: {len(commits)}')
 
-        print(len(commits), commit_no)
         if len(commits) > 1 and len(commits) >= commit_no:
-            print('in 1')
             latest_commit_hash = commits[0].hexsha
             target_commit_hash = commits[commit_no].hexsha
             logger.info(f'Found {commit_no} commits from HEAD')
@@ -91,7 +90,7 @@ class GitHandler:
                 changed_lines = []
 
             elif line.startswith('++'):
-                pass
+                continue
 
             elif line.startswith('+'):
                 # If this is a changed line, add it to the list of changed lines for the current file

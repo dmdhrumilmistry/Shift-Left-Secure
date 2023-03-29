@@ -1,12 +1,11 @@
 from argparse import ArgumentParser
 from asyncio import run
-from pprint import pprint
 from os import environ
 
 
 from .chatgpt_api import CodeAnalyzer 
 from .git_handler import GitHandler
-from .utils import join_diffs, json_to_file
+from .utils import join_diffs, json_to_file, analyzed_data_to_console
 
 
 OPEN_API_KEY = environ.get('OPEN_API_KEY', False)
@@ -30,7 +29,7 @@ if __name__ == '__main__':
 
     analyzed_code_snippets = run(code_analyzer.analyze_git_changes(diff_changes))
 
+    analyzed_data_to_console(analyzed_code_snippets)
+
     if args.output_path:
         json_to_file(args.output_path,analyzed_code_snippets)
-
-    pprint(analyzed_code_snippets)
