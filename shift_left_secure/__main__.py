@@ -27,6 +27,6 @@ if __name__ == '__main__':
     git = GitHandler(repo_dir=args.directory)
     diff_changes = join_diffs(git.get_diff(args.commits))
 
-    analyzed_code_snippets = code_analyzer.analyze_git_changes(diff_changes)
+    analyzed_code_snippets = run(code_analyzer.analyze_git_changes(diff_changes))
 
     pprint(analyzed_code_snippets)
