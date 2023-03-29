@@ -42,6 +42,7 @@ class CodeAnalyzer:
     async def analyze_code(self, file_name:str, code:str):
         logger.info(f'Analyzing code of file: {file_name}')
 
+        # TODO: call below calls with async
         bugs_response = self.find_bugs_in_code(code)
         vulns_response = self.find_vulns_in_code(code)
 

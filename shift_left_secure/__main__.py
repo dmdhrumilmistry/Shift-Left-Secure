@@ -6,7 +6,7 @@ from os import environ
 
 from .chatgpt_api import CodeAnalyzer 
 from .git_handler import GitHandler
-from .utils import join_diffs
+from .utils import join_diffs, json_to_file
 
 
 OPEN_API_KEY = environ.get('OPEN_API_KEY', False)
@@ -19,7 +19,8 @@ code_analyzer = CodeAnalyzer(
 if __name__ == '__main__':
     parser = ArgumentParser(prog='shift_left_secure')
     parser.add_argument('-d', '--directory', help='directory of git project', dest='directory', type=str, required=True)
-    parser.add_argument('-c', '--commit_hash', help='commit hash', dest='commits', type=int, default=1)
+    parser.add_argument('-c', '--commit_hash', help='no of commits to be analyzed from current HEAD', dest='commits', type=int, default=1)
+    parser.add_argument('-o', '--output', help='output path to json file', dest='output_path' ,required=False, default=False, type=str)
 
     args = parser.parse_args()
 
@@ -28,5 +29,8 @@ if __name__ == '__main__':
     diff_changes = join_diffs(git.get_diff(args.commits))
 
     analyzed_code_snippets = run(code_analyzer.analyze_git_changes(diff_changes))
+
+    if args.output_path:
+        json_to_file(args.output_path,analyzed_code_snippets)
 
     pprint(analyzed_code_snippets)
