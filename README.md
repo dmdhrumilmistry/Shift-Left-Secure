@@ -2,6 +2,42 @@
 
 Secure your project source code before pushing commits to github/gitlab/bitbucket.
 
+## Installation
+
+### Using Pip
+
+- From PyPi
+
+    ```bash
+    python -m pip install -U shift_left_secure
+    ```
+
+- From Github
+
+    ```bash
+    python -m pip install git+https://github.com/dmdhrumilmistry/Shift-Left-Secure.git
+    ```
+
+### Using Git Clone for Development
+
+- Clone repo
+
+    ```bash
+    git clone https://github.com/dmdhrumilmistry/Shift-Left-Secure.git
+    ```
+
+- change directory
+
+    ```bash
+    cd Shift-Left-Secure
+    ```
+
+- Install project
+
+    ```bash
+    python -m pip install -e . 
+    ```
+
 ## Usage
 
 - Add your ChatGPT API key to environment variable
