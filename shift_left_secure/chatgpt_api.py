@@ -60,6 +60,7 @@ class CodeAnalyzer:
             "file_name": file_name,
             "bugs_response": bugs_response,
             "vulns_response": vulns_response,
+            "code":code,
         }
 
         return analyzed_data

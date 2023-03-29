@@ -24,26 +24,10 @@ if __name__ == '__main__':
     # get diff changes
     git = GitHandler(repo_dir=args.directory)
     diff_changes = join_diffs(git.get_diff(args.commits))
-    pprint(diff_changes)
 
-    # get bugs in code
-#     code = '''
-# from subprocess import check_output
-# from os.path import isfile
+    for diff in diff_changes:
+        file_name = diff.get('file_path')
+        changed_lines = diff.get('changed_lines')
 
-
-# def run_cmd(cmd:str):
-#     output = check_output(cmd, shell=True)
-#     return output
-
-# def write_data(file_data:str, file_path:str):
-#     if not isfile(file_path):
-#         return False
-    
-#     with open(file_path, 'w') as f:
-#         f.write(file_data)
-
-#     return True
-# '''
-    # analyzed_data = code_analyzer.analyze_code(file_name='testing.py', code=code)
-    # pprint(analyzed_data)
+        # analyzed_data = code_analyzer.analyze_code(file_name='testing.py', code=changed_lines)
+        # pprint(analyzed_data)
