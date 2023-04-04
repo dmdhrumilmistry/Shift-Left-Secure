@@ -1,6 +1,6 @@
-# Shift Left Secure
+# Shift Left N Secure
 
-Secure your project source code before pushing commits to github/gitlab/bitbucket.
+Secure your project source code before pushing commits to github/gitlab/bitbucket. Project helps Software Development team to use shift left approach to find and mitigate issues at an early stage instead of taking action once code reaches to the production. 
 
 ## Installation
 
