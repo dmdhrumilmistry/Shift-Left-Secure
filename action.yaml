@@ -1,0 +1,12 @@
+name: Shift Left N Secure Action
+description: Raises security issues and bugs in PR description along with fixes.`
+inputs:
+  pull_request_number:
+    description: 'The number of the pull request to update'
+    required: true
+  new_description:
+    description: 'The new description to set for the pull request'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
