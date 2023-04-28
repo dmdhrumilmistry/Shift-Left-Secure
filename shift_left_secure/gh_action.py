@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 from github import Github
 from sys import exit
 from os import environ
-from .chatgpt_api import CodeAnalyzer 
-from .utils import filter_gh_file_data, create_gh_description
+from shift_left_secure.chatgpt_api import CodeAnalyzer 
+from shift_left_secure.utils import filter_gh_file_data, create_gh_description
 
 
 import logging
@@ -68,9 +68,9 @@ if __name__ == '__main__':
     elif not ACCESS_TOKEN:
         logger.error('GH_ACCESS_TOKEN env variable was not configured.')
     elif not REPO:
-        logger.error('GITHUB_REPO env variable was not configured.')
+        logger.error('GH_REPO env variable was not configured.')
     elif PR_NUMBER == -1:
-        logger.error('PR_NUMBER env variable was not configured.')
+        logger.error('GH_PR_NUMBER env variable was not configured.')
     else:
         should_exit = False
         logger.info('ENV vars found.')
