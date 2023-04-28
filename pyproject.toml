@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "shift-left-secure"
-version = "0.1.2"
+version = "0.2.0"
 description = "Mitigate vulnerabilities before pushing code to github/gitlab/bitbucket"
 authors = ["Dhrumil Mistry <56185972+dmdhrumilmistry@users.noreply.github.com>"]
 readme = "README.md"
