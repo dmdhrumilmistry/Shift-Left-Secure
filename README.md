@@ -1,6 +1,6 @@
 # Shift Left N Secure
 
-Secure your project source code before pushing commits to github/gitlab/bitbucket. Project helps Software Development team to use shift left approach to find and mitigate issues at an early stage instead of taking action once code reaches to the production. 
+Secure your project source code before pushing commits to github/gitlab/bitbucket. Project helps Software Development team to use shift left approach to find and mitigate issues at an early stage instead of taking action once code reaches to the production.
 
 ## Installation
 
@@ -67,3 +67,17 @@ Secure your project source code before pushing commits to github/gitlab/bitbucke
     ```bash
     python -m shift_left_secure -d 'path_to_git_project' -c 1 -o test.json
     ```
+
+### Github Action
+
+- Create Github Access Token
+
+- Create OPEN AI API key
+
+- Add secrets to repository
+  - `OPENAI_API_KEY`
+  - `GH_ACCESS_TOKEN`
+
+- Copy `workflow.yml` file and add it to `.github/workflows` directory.
+
+- Each PR will be tested and its description will be updated.
