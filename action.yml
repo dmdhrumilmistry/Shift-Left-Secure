@@ -2,4 +2,4 @@ name: Shift Left Secure Action
 description: Raises security issues and bugs in PR description along with probable fixes.
 runs:
   using: 'python-3.9'
-  run: "python -m shift_left_secure.action"
+  run: "python -m shift_left_secure.gh_action"
