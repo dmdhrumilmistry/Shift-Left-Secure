@@ -64,7 +64,7 @@ if __name__ == '__main__':
 
     should_exit = True
     if not OPEN_API_KEY:
-        logger.error('OPEN_API_KEY env variable was not configured.')
+        logger.error('OPENAI_API_KEY env variable was not configured.')
     elif not ACCESS_TOKEN:
         logger.error('GH_ACCESS_TOKEN env variable was not configured.')
     elif not REPO:

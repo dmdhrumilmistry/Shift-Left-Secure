@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "shift-left-secure"
-version = "0.2.2"
+version = "0.2.3"
 description = "Mitigate vulnerabilities before pushing code to github/gitlab/bitbucket"
 authors = ["Dhrumil Mistry <56185972+dmdhrumilmistry@users.noreply.github.com>"]
 readme = "README.md"
@@ -8,10 +8,10 @@ packages = [{include = "shift_left_secure"}]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
-openapi = "^1.1.0"
 gitpython = "3.1.18"
 pygithub = "^1.58.1"
 python-dotenv = "^1.0.0"
+openai = "^0.27.5"
 
 
 [build-system]
