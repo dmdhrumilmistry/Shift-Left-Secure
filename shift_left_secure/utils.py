@@ -1,4 +1,5 @@
 from json import dumps
+from textwrap import dedent
 import logging
 
 
@@ -55,3 +56,53 @@ def analyzed_data_to_console(analyzed_data:list):
         print('BUGS:\n',bugs_response, '\n')
         print('VULNS:\n', vulns_response, '\n')
         print('-'*20)
+
+def filter_gh_file_data(lines:list, file_name:str):
+    final_code = []
+    section = 0
+    for line in lines:
+        if line.startswith("---") or line.startswith("+++"):
+            continue
+        elif line.startswith("@@"):
+            section += 1
+            final_code.append(f'\n>> Interpret below code as section {section} inside {file_name} file.')
+        elif line.startswith("-"):
+            continue
+        elif line.startswith("+"):
+            final_code.append(line[1:])
+        else:
+            final_code.append(line)
+        
+    return '\n'.join(final_code)
+
+
+def analyzed_code_snippet_to_description(response:dict):
+    '''
+    converts analyzed code dict/json to github description
+    '''
+    return dedent(f'''## :file_folder: {response.get('file_name')}
+    Bugs and Vulnerabilities can be found in below section along with their fixes.
+
+    
+    ### :bug: Bugs
+
+    {response.get('bugs_response')}
+
+
+    ### :lock: Vulns
+
+    {response.get('vulns_response')}
+
+
+    ''')
+
+
+def create_gh_description(analyzed_code_snippets:str):
+    '''
+    create github description from analyzed code snippets response from openai api
+    '''
+    description = ''
+    for analyzed_code_snippet in analyzed_code_snippets:
+        description += analyzed_code_snippet_to_description(analyzed_code_snippet)
+
+    return description

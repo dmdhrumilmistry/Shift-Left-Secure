@@ -1,0 +1,9 @@
+name: Shift Left Secure Action
+description: Raises security issues and bugs in PR description along with probable fixes.
+inputs:
+  pull_request_number:
+    description: 'The number of the pull request to be reviewed'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
