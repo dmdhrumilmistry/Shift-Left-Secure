@@ -42,11 +42,15 @@ class PReviewer(CodeAnalyzer):
             })
        
         analyzed_code_snippets = run(self.analyze_git_changes(code_snippets))
+        logger.info('Analyzed PR commits.')
         
         description = create_gh_description(analyzed_code_snippets)
 
         # Update the pull request description
         pr.edit(body=description)
+        logger.info('Updated Bugs and Vulns in PR description.')
+
+
 
 
 if __name__ == '__main__':
