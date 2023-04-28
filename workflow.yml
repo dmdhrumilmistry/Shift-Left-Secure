@@ -1,4 +1,4 @@
-name: Review PR 
+name: Shift Left N Secure PR Review
 on:
   pull_request:
     types: [opened]
@@ -6,10 +6,10 @@ jobs:
   review_security_issues_and_bugs:
     runs-on: ubuntu-latest
     env:
-        OPEN_API_KEY: ${{ secrets.OPEN_API_KEY }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
         GH_PR_NUMBER: ${{ github.event.pull_request.number }}
-        PR_NUMBER: ${{ github.repository }}
+        GH_REPO: ${{ github.repository }}
 
     steps:
     - name: setup python
