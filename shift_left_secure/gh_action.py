@@ -57,16 +57,16 @@ if __name__ == '__main__':
     load_dotenv()
 
     # Replace with your GitHub access token
-    OPEN_API_KEY = environ.get('OPEN_API_KEY')
-    ACCESS_TOKEN = environ.get('GITHUB_ACCESS_TOKEN')
-    REPO = environ.get('REPO')
-    PR_NUMBER = int(environ.get('PR_NUMBER','-1'))
+    OPEN_API_KEY = environ.get('OPENAI_API_KEY')
+    ACCESS_TOKEN = environ.get('GH_ACCESS_TOKEN')
+    REPO = environ.get('GH_REPO')
+    PR_NUMBER = int(environ.get('GH_PR_NUMBER','-1'))
 
     should_exit = True
     if not OPEN_API_KEY:
         logger.error('OPEN_API_KEY env variable was not configured.')
     elif not ACCESS_TOKEN:
-        logger.error('GITHUB_ACCESS_TOKEN env variable was not configured.')
+        logger.error('GH_ACCESS_TOKEN env variable was not configured.')
     elif not REPO:
         logger.error('GITHUB_REPO env variable was not configured.')
     elif PR_NUMBER == -1:
