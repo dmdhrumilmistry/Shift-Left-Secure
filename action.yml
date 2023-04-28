@@ -5,5 +5,5 @@ inputs:
     description: 'The number of the pull request to be reviewed'
     required: true
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'python-3.9'
+  run: "python -m shift_left_secure.action"
