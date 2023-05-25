@@ -94,7 +94,7 @@ def analyzed_code_snippet_to_description(response:dict):
     {response.get('vulns_response')}
 
 
-    ''')
+    '''.strip())
 
 
 def create_gh_description(analyzed_code_snippets:str):
